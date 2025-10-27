@@ -11,16 +11,16 @@ A beautiful ticket management system built with PHP and Twig templating engine.
 ## Installation
 
 1. Install dependencies:
-\`\`\`bash
+`bash
 composer install
-\`\`\`
+`
 
 2. Configure your web server to point to the `public` directory as the document root.
 
 3. Ensure the `data` directory is writable:
-\`\`\`bash
+   `bash
 chmod 755 data
-\`\`\`
+   `
 
 ## Features
 
@@ -34,7 +34,7 @@ chmod 755 data
 
 ## Project Structure
 
-\`\`\`
+```
 ├── public/              # Public web root
 │   ├── index.php       # Application entry point
 │   ├── styles/         # CSS files
@@ -51,7 +51,7 @@ chmod 755 data
 │   ├── auth/           # Authentication pages
 │   └── tickets/        # Ticket pages
 └── data/               # Data storage (JSON files)
-\`\`\`
+```
 
 ## Usage
 
@@ -59,13 +59,13 @@ chmod 755 data
 
 The easiest way to run the application locally:
 
-\`\`\`bash
+```bash
 # Install dependencies
 composer install
 
 # Start the built-in PHP development server
 php -S localhost:8000 -t public
-\`\`\`
+```
 
 Or use the provided start scripts:
 - **Unix/Mac/Linux**: `./start.sh`
