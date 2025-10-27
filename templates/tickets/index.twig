@@ -1,0 +1,201 @@
+{% extends 'layout.twig' %}
+
+{% block title %}Tickets - TicketFlow{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: var(--space-xl); padding-bottom: var(--space-2xl);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); flex-wrap: wrap; gap: var(--space-md);">
+        <h1>My Tickets</h1>
+        <button onclick="openCreateModal()" class="btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Create Ticket
+        </button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md); margin-bottom: var(--space-xl);">
+        <div class="stat-card" style="padding: var(--space-md);">
+            <div style="display: flex; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-xs);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <div class="stat-label" style="font-size: var(--font-size-xs);">Total</div>
+            </div>
+            <div class="stat-value" style="font-size: var(--font-size-2xl);">{{ stats.total }}</div>
+        </div>
+
+        <div class="stat-card" style="padding: var(--space-md);">
+            <div style="display: flex; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-xs);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div class="stat-label" style="font-size: var(--font-size-xs);">Open</div>
+            </div>
+            <div class="stat-value" style="font-size: var(--font-size-2xl); color: var(--leaf-olive);">{{ stats.open }}</div>
+        </div>
+
+        <div class="stat-card" style="padding: var(--space-md);">
+            <div style="display: flex; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-xs);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="stat-label" style="font-size: var(--font-size-xs);">In Progress</div>
+            </div>
+            <div class="stat-value" style="font-size: var(--font-size-2xl); color: var(--accent-secondary);">{{ stats.inProgress }}</div>
+        </div>
+
+        <div class="stat-card" style="padding: var(--space-md);">
+            <div style="display: flex; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-xs);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <div class="stat-label" style="font-size: var(--font-size-xs);">Closed</div>
+            </div>
+            <div class="stat-value" style="font-size: var(--font-size-2xl); color: var(--muted-brown);">{{ stats.closed }}</div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: var(--space-lg); padding: var(--space-md); background: var(--color-surface); border-radius: var(--radius-lg);">
+        <span style="font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text-secondary);">Priorities:</span>
+        <span style="font-size: var(--font-size-sm);"><span style="color: var(--leaf-rust); font-weight: 600;">{{ stats.highPriority }}</span> High</span>
+        <span style="font-size: var(--font-size-sm);"><span style="color: var(--accent-secondary); font-weight: 600;">{{ stats.mediumPriority }}</span> Medium</span>
+        <span style="font-size: var(--font-size-sm);"><span style="color: var(--leaf-olive); font-weight: 600;">{{ stats.lowPriority }}</span> Low</span>
+    </div>
+
+    <form method="GET" style="margin-bottom: var(--space-lg);">
+        <div style="position: relative; max-width: 500px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--color-muted);">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="search" name="search" value="{{ search }}" placeholder="Search tickets by title, description, or priority..." style="padding-left: 40px; width: 100%;" aria-label="Search tickets">
+        </div>
+    </form>
+
+    <div style="margin-bottom: var(--space-lg);">
+        <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+            <a href="/tickets?filter=all" class="btn {{ filter == 'all' ? '' : 'secondary' }}" style="padding: 8px 16px;">All</a>
+            <a href="/tickets?filter=open" class="btn {{ filter == 'open' ? '' : 'secondary' }}" style="padding: 8px 16px;">Open</a>
+            <a href="/tickets?filter=in-progress" class="btn {{ filter == 'in-progress' ? '' : 'secondary' }}" style="padding: 8px 16px;">In Progress</a>
+            <a href="/tickets?filter=closed" class="btn {{ filter == 'closed' ? '' : 'secondary' }}" style="padding: 8px 16px;">Closed</a>
+        </div>
+    </div>
+
+    {% if tickets|length == 0 %}
+        <div class="card" style="text-align: center; padding: var(--space-2xl);">
+            <p style="color: var(--color-muted);">No tickets found.</p>
+        </div>
+    {% else %}
+        <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+            {% for ticket in tickets %}
+                <div class="card ticket-item" style="padding: var(--space-lg);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-md); margin-bottom: var(--space-md);">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-sm);">
+                                <h3 style="margin: 0; font-size: var(--font-size-xl);">{{ ticket.title }}</h3>
+                                <span style="padding: 4px 8px; border-radius: var(--radius-sm); font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: {% if ticket.priority == 'high' %}var(--leaf-rust){% elseif ticket.priority == 'medium' %}var(--accent-secondary){% else %}var(--leaf-olive){% endif %}; border: 1px solid {% if ticket.priority == 'high' %}var(--leaf-rust){% elseif ticket.priority == 'medium' %}var(--accent-secondary){% else %}var(--leaf-olive){% endif %}; background: {% if ticket.priority == 'high' %}var(--leaf-rust){% elseif ticket.priority == 'medium' %}var(--accent-secondary){% else %}var(--leaf-olive){% endif %}15;">
+                                    {{ ticket.priority }}
+                                </span>
+                            </div>
+                            <p style="margin: 0; color: var(--color-text-secondary);">{{ ticket.description }}</p>
+                            <p style="margin: 0; margin-top: var(--space-sm); font-size: var(--font-size-xs); color: var(--color-muted); display: flex; align-items: center; gap: var(--space-xs);">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                Created: {{ ticket.createdAt|date('M d, Y') }}
+                            </p>
+                        </div>
+                        <span class="status-pill status-{{ ticket.status }}">
+                            {{ ticket.status == 'in-progress' ? 'In Progress' : ticket.status|title }}
+                        </span>
+                    </div>
+                    
+                    <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+                        <select onchange="if(this.value) this.form.submit()" form="status-form-{{ ticket.id }}" name="status" style="padding: 8px 12px; font-size: var(--font-size-sm);" aria-label="Change ticket status">
+                            <option value="">Change Status</option>
+                            <option value="open" {{ ticket.status == 'open' ? 'selected' : '' }}>Open</option>
+                            <option value="in-progress" {{ ticket.status == 'in-progress' ? 'selected' : '' }}>In Progress</option>
+                            <option value="closed" {{ ticket.status == 'closed' ? 'selected' : '' }}>Closed</option>
+                        </select>
+                        <form id="status-form-{{ ticket.id }}" method="POST" action="/tickets/update" style="display: none;">
+                            <input type="hidden" name="id" value="{{ ticket.id }}">
+                        </form>
+                        
+                        <button onclick="openEditModal('{{ ticket.id }}', '{{ ticket.title|e('js') }}', '{{ ticket.description|e('js') }}', '{{ ticket.status }}', '{{ ticket.priority }}')" class="btn secondary" style="padding: 8px 16px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                            </svg>
+                            Edit
+                        </button>
+                        
+                        <form method="POST" action="/tickets/delete" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this ticket?');">
+                            <input type="hidden" name="id" value="{{ ticket.id }}">
+                            <button type="submit" class="btn secondary" style="padding: 8px 16px; color: var(--leaf-rust);">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<div id="ticketModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center; z-index: 1000; padding: var(--space-lg);">
+    <div class="card" style="max-width: 600px; width: 100%; padding: var(--space-xl);" onclick="event.stopPropagation();">
+        <h2 id="modalTitle" style="margin-bottom: var(--space-lg);">Create Ticket</h2>
+        
+        <form id="ticketForm" method="POST" style="display: flex; flex-direction: column; gap: var(--space-lg);">
+            <input type="hidden" name="id" id="ticketId">
+            
+            <div>
+                <label for="title" style="display: block; margin-bottom: var(--space-sm); font-weight: 600;">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div>
+                <label for="description" style="display: block; margin-bottom: var(--space-sm); font-weight: 600;">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+            
+            <div>
+                <label for="priority" style="display: block; margin-bottom: var(--space-sm); font-weight: 600;">Priority</label>
+                <select id="priority" name="priority" required>
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            
+            <div id="statusField" style="display: none;">
+                <label for="status" style="display: block; margin-bottom: var(--space-sm); font-weight: 600;">Status</label>
+                <select id="status" name="status">
+                    <option value="open">Open</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+            
+            <div style="display: flex; gap: var(--space-sm);">
+                <button type="submit" class="btn" style="flex: 1;">Save</button>
+                <button type="button" onclick="closeModal()" class="btn secondary" style="flex: 1;">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

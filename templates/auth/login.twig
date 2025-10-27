@@ -1,0 +1,41 @@
+{% extends 'layout.twig' %}
+
+{% block title %}Login - TicketFlow{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: var(--space-2xl); padding-bottom: var(--space-2xl);">
+    <div style="max-width: 480px; margin: 0 auto;">
+        <div class="card" style="padding: var(--space-xl);">
+            <h1 style="text-align: center; margin-bottom: var(--space-lg);">Welcome Back</h1>
+            <p style="text-align: center; margin-bottom: var(--space-xl); color: var(--color-text-secondary);">
+                Sign in to your account to continue
+            </p>
+
+            {# Added data attributes for loading state #}
+            <form method="POST" action="/auth/login" data-loading style="display: flex; flex-direction: column; gap: var(--space-lg);">
+                <div>
+                    <label for="email" style="display: block; margin-bottom: var(--space-sm); font-weight: 600; font-size: var(--font-size-sm);">
+                        Email Address
+                    </label>
+                    <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+                </div>
+
+                <div>
+                    <label for="password" style="display: block; margin-bottom: var(--space-sm); font-weight: 600; font-size: var(--font-size-sm);">
+                        Password
+                    </label>
+                    <input id="password" type="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn" data-loading-text="Signing in..." style="width: 100%;">Sign In</button>
+            </form>
+            {# </CHANGE> #}
+
+            <p style="text-align: center; margin-top: var(--space-lg); font-size: var(--font-size-sm);">
+                Don't have an account? 
+                <a href="/auth/signup" style="color: var(--accent-primary); font-weight: 600;">Sign up</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

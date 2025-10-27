@@ -1,0 +1,76 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="container" style="padding-top: var(--space-xl); padding-bottom: var(--space-2xl);">
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Manage Tickets with Ease and Elegance</h1>
+            <p class="text-pretty">
+                A beautiful, intuitive ticket management system designed with warm autumn aesthetics. Track, organize, and
+                resolve tickets efficiently while enjoying a delightful user experience.
+            </p>
+            <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                {% if user %}
+                    <a href="/dashboard" class="btn">Go to Dashboard</a>
+                    <a href="/tickets" class="btn secondary">View Tickets</a>
+                {% else %}
+                    <a href="/auth/signup" class="btn">Get Started</a>
+                    <a href="/auth/login" class="btn secondary">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
+        <div style="flex: 0 0 auto; position: relative; z-index: 1;">
+            <img
+                src="/autumn-leaves-ticket-management-illustration.jpg"
+                alt="Ticket management illustration"
+                style="width: 100%; max-width: 400px; height: auto; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);"
+            />
+        </div>
+    </div>
+
+    <section style="margin-top: var(--space-2xl);">
+        <h2 style="text-align: center; margin-bottom: var(--space-xl);">Key Features</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg);">
+            <div class="card">
+                <div style="margin-bottom: var(--space-md); color: var(--accent-primary);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                        <path d="M13 5v2"></path>
+                        <path d="M13 17v2"></path>
+                        <path d="M13 11v2"></path>
+                    </svg>
+                </div>
+                <h3>Intuitive Management</h3>
+                <p>Create, update, and track tickets with an easy-to-use interface designed for efficiency.</p>
+            </div>
+
+            <div class="card">
+                <div style="margin-bottom: var(--space-md); color: var(--accent-primary);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v18h18"></path>
+                        <path d="m19 9-5 5-4-4-3 3"></path>
+                    </svg>
+                </div>
+                <h3>Visual Dashboard</h3>
+                <p>Get insights at a glance with beautiful statistics and status tracking.</p>
+            </div>
+
+            <div class="card">
+                <div style="margin-bottom: var(--space-md); color: var(--accent-primary);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="13.5" cy="6.5" r=".5"></circle>
+                        <circle cx="17.5" cy="10.5" r=".5"></circle>
+                        <circle cx="8.5" cy="7.5" r=".5"></circle>
+                        <circle cx="6.5" cy="12.5" r=".5"></circle>
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+                    </svg>
+                </div>
+                <h3>Autumn Theme</h3>
+                <p>Enjoy a warm, cozy design with light and dark modes inspired by autumn colors.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% include 'components/footer.twig' %}
+{% endblock %}

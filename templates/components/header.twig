@@ -1,0 +1,46 @@
+<header class="app-header">
+    <a href="/" class="brand">
+        <div class="logo">🍂</div>
+        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 20px;">TicketFlow</span>
+    </a>
+
+    <nav>
+        {% if user %}
+            {# Added proper SVG icons matching React lucide icons #}
+            <a href="/dashboard" class="{{ current_path == '/dashboard' ? 'active' : '' }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                    <rect x="3" y="3" width="7" height="9"></rect>
+                    <rect x="14" y="3" width="7" height="5"></rect>
+                    <rect x="14" y="12" width="7" height="9"></rect>
+                    <rect x="3" y="16" width="7" height="5"></rect>
+                </svg>
+                Dashboard
+            </a>
+            <a href="/tickets" class="{{ current_path == '/tickets' ? 'active' : '' }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                    <path d="M13 5v2"></path>
+                    <path d="M13 17v2"></path>
+                    <path d="M13 11v2"></path>
+                </svg>
+                Tickets
+            </a>
+            <a href="/auth/logout" class="btn secondary" style="padding: 8px 16px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </a>
+        {% else %}
+            <a href="/auth/login" class="{{ current_path == '/auth/login' ? 'active' : '' }}">Login</a>
+            <a href="/auth/signup" class="{{ current_path == '/auth/signup' ? 'active' : '' }}">Sign Up</a>
+        {% endif %}
+        
+        {# Client-side theme toggle with JavaScript #}
+        <button id="themeToggle" class="btn secondary" style="padding: 8px 16px; font-size: 18px;" aria-label="Toggle theme">
+            🌙
+        </button>
+    </nav>
+</header>
