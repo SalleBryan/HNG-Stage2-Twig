@@ -1,14 +1,32 @@
 {
   "version": 2,
   "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.7.4"
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.0"
     }
   },
   "routes": [
     {
+      "src": "/styles/(.*)",
+      "dest": "/public/styles/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/(.*\\.(jpg|jpeg|png|gif|svg|ico|webp|css|js))",
+      "dest": "/public/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.php"
     }
-  ]
+  ],
+  "outputDirectory": "public",
+  "build": {
+    "env": {
+      "PHP_VERSION": "8.2"
+    }
+  }
 }
